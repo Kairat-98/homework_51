@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Ball from './ball/ball';
+import './App.css'
 
 const App: React.FC = () => {
     const [numbers, setNumbers] = useState<number[]>([]);
