@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Ball from './ball/ball';
 
-const App = () => (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo"/>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-);
+const App: React.FC = () => {
+    const [numbers, setNumbers] = useState<number[]>([]);
+
+    const generateNumbers = () => {
+        const newNumbers: number[] = [];
+        while (newNumbers.length < 5) {
+            const randomNumber = Math.floor(Math.random() * 32) + 5;
+            if (!newNumbers.includes(randomNumber)) {
+                newNumbers.push(randomNumber);
+            }
+        }
+        setNumbers(newNumbers.sort((a, b) => a - b));
+    };
+
+    return (
+        <div className="App">
+            <h1>Лотерея "5 из 36"</h1>
+            <button onClick={generateNumbers}>Новые числа</button>
+            <div className="balls-container">
+                {numbers.map((number) => (
+                    <Ball key={number} number={number} />
+                ))}
+            </div>
+        </div>
+    );
+};
 
 export default App;
